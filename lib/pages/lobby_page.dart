@@ -20,6 +20,7 @@ import 'package:silsiganmetro/widgets/exit_dialog.dart';
 import 'package:silsiganmetro/widgets/lobby_train.dart';
 import 'package:silsiganmetro/widgets/metro.dart';
 import 'package:silsiganmetro/widgets/metro_dialog.dart';
+import 'package:silsiganmetro/widgets/small_notice.dart';
 import 'package:silsiganmetro/widgets/station_panel.dart';
 
 class LobbyPage extends StatefulWidget {
@@ -126,42 +127,7 @@ class _LobbyPageState extends State<LobbyPage> {
                                 itemCount: items.length + 2,
                                 itemBuilder: (context, index) {
                                   if(index == 0) {
-                                    return Column(
-                                      children: [
-                                        InkWell(
-                                          onTap: () {
-                                            Navigator.push(context, MaterialPageRoute(builder: (context) => NoticePage()));
-                                          },
-                                          child: Container(
-                                            height: 45,
-                                            padding: EdgeInsets.symmetric(
-                                              horizontal: Dimens.marginMedium,
-                                            ),
-                                            child: Row(
-                                              children: <Widget>[
-                                                Icon(
-                                                  CupertinoIcons.bell,
-                                                  size: 20,
-                                                ),
-                                                SizedBox(
-                                                  width: Dimens.marginDefault,
-                                                ),
-                                                Expanded(
-                                                  child: Text(
-                                                    '실시간지하철 6버전 업데이트',
-                                                    overflow: TextOverflow.ellipsis,
-                                                    maxLines: 1,
-                                                    style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    );
+                                    return SmallNotice();
                                   } else if(index == items.length + 1) {
                                     return Container(
                                       height: 150,
@@ -214,7 +180,11 @@ class _LobbyPageState extends State<LobbyPage> {
                                   }
                                 },
                                 separatorBuilder: (context, index) {
-                                  return Divider();
+                                  if(items.length == 0) {
+                                    return SizedBox.shrink();
+                                  } else {
+                                    return Divider();
+                                  }
                                   if(index == 0 || index > 0 && (index - 1 < items.length - 1 && items[index - 1]['type'] != items[index]['type'])) {
                                     return Container(
                                       height: 10,
