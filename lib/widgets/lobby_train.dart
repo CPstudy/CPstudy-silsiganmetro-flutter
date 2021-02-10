@@ -181,6 +181,7 @@ class LobbyTextTrain extends StatelessWidget {
         child: Text(
           ' $arrivalStatus ',
           style: TextStyle(
+            height: 1,
             color: Colors.lightBlue,
             fontSize: 12,
             fontWeight: FontWeight.bold,
@@ -205,6 +206,7 @@ class LobbyTextTrain extends StatelessWidget {
           child: Text(
             ' $arrivalStatus ',
             style: TextStyle(
+              height: 1,
               color: Colors.deepOrangeAccent,
               fontSize: 12,
               fontWeight: FontWeight.bold,
@@ -227,6 +229,7 @@ class LobbyTextTrain extends StatelessWidget {
           child: Text(
             ' $arrivalStatus ',
             style: TextStyle(
+              height: 1,
               color: Theme.of(context).textTheme.caption.color,
               fontSize: 12,
             ),
@@ -281,6 +284,7 @@ class LobbyTextTrain extends StatelessWidget {
                 child: Text(
                   ' $text ',
                   style: TextStyle(
+                    height: 1,
                     color: Theme.of(context).textTheme.caption.color,
                     fontSize: 12,
                   ),
@@ -307,6 +311,7 @@ class LobbyTextTrain extends StatelessWidget {
                 child: Text(
                   ' $subText ',
                   style: TextStyle(
+                    height: 1,
                     color: Theme.of(context).textTheme.caption.color,
                     fontSize: 12,
                   ),

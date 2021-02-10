@@ -147,16 +147,16 @@ class _LocatePageState extends State<LocatePage> with TickerProviderStateMixin {
               title: Text(
                 lineData.name,
               ),
-              actions: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => LocateTabletPage()));
-                  },
-                  icon: Icon(
-                    Icons.linear_scale
-                  ),
-                ),
-              ],
+              // actions: [
+              //   IconButton(
+              //     onPressed: () {
+              //       Navigator.push(context, MaterialPageRoute(builder: (context) => LocateTabletPage()));
+              //     },
+              //     icon: Icon(
+              //       Icons.linear_scale
+              //     ),
+              //   ),
+              // ],
             ),
             body: Column(
               children: [

@@ -9,7 +9,6 @@ import 'line.dart';
 class TrainLocation {
 
   Future<Map<String, List<TrainDTO>>> getTrains(String line) async {
-    print('2');
     String l = Line.lines[line]['title'];
     List<TrainDTO> list = List();
     Map<String, TrainDTO> trains = Map();
@@ -42,6 +41,8 @@ class TrainLocation {
           }
 
           head == UP ? head = DOWN : head = UP;
+        } else if(line == UISINSEOL) {
+          print('우이신설선');
         }
 
         print('express = $express');

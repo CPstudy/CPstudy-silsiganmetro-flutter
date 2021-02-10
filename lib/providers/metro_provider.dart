@@ -174,6 +174,21 @@ class LocateProvider with ChangeNotifier {
                   break;
               }
             }
+          } else if(line == '우이신설선') {
+            if(head == UP) {
+              head = DOWN;
+            } else {
+              head = UP;
+            }
+            try {
+              if(int.parse(no) % 2 == 1 && dst == '신설동') {
+                dst = '북한산우이';
+              } else if(int.parse(no) % 2 == 0 && dst == '북한산우이') {
+                dst = '신설동';
+              }
+            } catch(e) {
+              print(e);
+            }
           }
 
           TrainDTO dto = TrainDTO(
