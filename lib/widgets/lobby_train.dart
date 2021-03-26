@@ -390,6 +390,7 @@ class LobbyTextTrain extends StatelessWidget {
               child: Text(
                 ' 막차 ',
                 style: TextStyle(
+                  height: 1,
                   color: Colors.red,
                   fontSize: 12,
                 ),
