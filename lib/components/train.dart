@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:silsiganmetro/dto/dto.dart';
 import 'package:silsiganmetro/dto/traindto.dart';
 import 'package:silsiganmetro/foundations/global.dart';
+import 'package:silsiganmetro/pages/web_page.dart';
 import 'package:silsiganmetro/providers/setting_provider.dart';
 import 'package:silsiganmetro/values/constants.dart';
 import 'package:sprintf/sprintf.dart';
@@ -49,6 +50,101 @@ class Train extends StatelessWidget {
     }
   }
 
+  void clickTrain(BuildContext context) {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (context) => CupertinoActionSheet(
+        title: Column(
+          children: [
+            Text(
+              '#${dto.no}'
+            ),
+            CupertinoTextField(),
+          ],
+        ),
+        actions: [
+          CupertinoActionSheetAction(
+            onPressed: () => inputTrainPrimary(context),
+            child: Text(
+              '편성번호 입력',
+            ),
+          ),
+          CupertinoActionSheetAction(
+            onPressed: openRailBlue,
+            child: Text(
+              '레일.블루 열차 정보',
+            ),
+          ),
+        ],
+      )
+    );
+  }
+
+  inputTrainPrimary(BuildContext context)  {
+    String url = sprintf(urlTrain, [metros[metro].number, dto.no]);
+    Navigator.push(context, MaterialPageRoute(builder: (context) => WebPage(title: '#${dto.no}', url: url)));
+  }
+
+  Future openRailBlue() async {
+    String date = Global().getTimetableDate();
+    String railBlue = 'https://rail.blue/railroad/logis/Default.aspx?train=%s&date=%s#!';
+    String url = 'https://rail.blue';
+
+    switch(metro) {
+      case Metro.line1:
+      case Metro.line3:
+      case Metro.line4:
+        url = sprintf(railBlue, [dto.no, date]);
+        break;
+
+      case Metro.line2:
+        url = sprintf(railBlue, ['S${dto.no}', date]);
+        break;
+
+      case Metro.line5:
+      case Metro.line6:
+      case Metro.line7:
+      case Metro.line8:
+        url = sprintf(railBlue, ['SMRT${dto.no}', date]);
+        break;
+
+      case Metro.line9:
+        if(dto.express == '0') {
+          url = sprintf(railBlue, ['SNC${dto.no}', date]);
+        } else {
+          url = sprintf(railBlue, ['SNE${dto.no}', date]);
+        }
+        break;
+
+      case Metro.gyeonguijungang:
+      case Metro.suinbundang:
+      case Metro.gyeongchun:
+        url = sprintf(railBlue, ['K${dto.no}', date]);
+        break;
+
+      case Metro.dxline:
+        url = sprintf(railBlue, ['DX${dto.no}', date]);
+        break;
+
+      case Metro.airport:
+        url = sprintf(railBlue, ['${dto.no}', date]);
+        break;
+
+      case Metro.uisinseol:
+        url = sprintf(railBlue, ['UI${dto.no}', date]);
+        break;
+
+      default:
+        break;
+    }
+
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final SettingProvider settingProvider = Provider.of<SettingProvider>(context);
@@ -81,65 +177,7 @@ class Train extends StatelessWidget {
         alignment: Alignment.center,
         children: <Widget>[
           InkWell(
-            onTap: () async {
-              String date = Global().getTimetableDate();
-              String railBlue = 'https://rail.blue/railroad/logis/Default.aspx?train=%s&date=%s#!';
-              String url = 'https://rail.blue';
-
-              switch(metro) {
-                case Metro.line1:
-                case Metro.line3:
-                case Metro.line4:
-                  url = sprintf(railBlue, [dto.no, date]);
-                  break;
-
-                case Metro.line2:
-                  url = sprintf(railBlue, ['S${dto.no}', date]);
-                  break;
-
-                case Metro.line5:
-                case Metro.line6:
-                case Metro.line7:
-                case Metro.line8:
-                  url = sprintf(railBlue, ['SMRT${dto.no}', date]);
-                  break;
-
-                case Metro.line9:
-                  if(dto.express == '0') {
-                    url = sprintf(railBlue, ['SNC${dto.no}', date]);
-                  } else {
-                    url = sprintf(railBlue, ['SNE${dto.no}', date]);
-                  }
-                  break;
-
-                case Metro.gyeonguijungang:
-                case Metro.suinbundang:
-                case Metro.gyeongchun:
-                  url = sprintf(railBlue, ['K${dto.no}', date]);
-                  break;
-
-                case Metro.dxline:
-                  url = sprintf(railBlue, ['DX${dto.no}', date]);
-                  break;
-
-                case Metro.airport:
-                  url = sprintf(railBlue, ['${dto.no}', date]);
-                  break;
-
-                case Metro.uisinseol:
-                  url = sprintf(railBlue, ['UI${dto.no}', date]);
-                  break;
-
-                default:
-                  break;
-              }
-
-              if (await canLaunch(url)) {
-                await launch(url);
-              } else {
-              throw 'Could not launch $url';
-              }
-            },
+            onTap: () => clickTrain(context),
             child: Container(
               width: 60,
               padding: EdgeInsets.symmetric(vertical: 2),

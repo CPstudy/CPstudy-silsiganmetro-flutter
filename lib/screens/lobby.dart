@@ -32,7 +32,6 @@ class _LobbyPageState extends State<LobbyPage> {
   }
 
   Widget listItem(int index) {
-    print("invaildate item $index");
     if(list[index]['type'] == 0) {
       return itemLine(index);
     } else {

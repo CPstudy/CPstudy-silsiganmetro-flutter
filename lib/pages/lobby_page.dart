@@ -127,7 +127,8 @@ class _LobbyPageState extends State<LobbyPage> {
                                 itemCount: items.length + 2,
                                 itemBuilder: (context, index) {
                                   if(index == 0) {
-                                    return SmallNotice();
+                                    return SizedBox.shrink();
+                                    //return SmallNotice();
                                   } else if(index == items.length + 1) {
                                     return Container(
                                       height: 150,
