@@ -177,7 +177,9 @@ class Train extends StatelessWidget {
         alignment: Alignment.center,
         children: <Widget>[
           InkWell(
-            onTap: () => clickTrain(context),
+            onTap: () {
+              openRailBlue();
+            },
             child: Container(
               width: 60,
               padding: EdgeInsets.symmetric(vertical: 2),
